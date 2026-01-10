@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tally Demo Test</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2e7d32">
+
+<!-- GREEN TD ICON -->
+<link rel="icon" href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+  <rect width='100' height='100' rx='15' fill='%232e7d32'/>
+  <text x='50%' y='58%' text-anchor='middle'
+        font-size='40' fill='white' font-family='Arial'>TD</text>
+</svg>">
+
+<style>
+body{margin:0;font-family:Arial;background:#e8f5e9;}
+.header{background:#2e7d32;color:#fff;text-align:center;padding:15px;}
+.container{max-width:900px;margin:15px auto;background:#fff;padding:20px;}
+.question{margin-bottom:15px;padding:10px;border-left:5px solid #2e7d32;}
+button{display:block;margin:20px auto;padding:10px 30px;background:#2e7d32;color:#fff;border:none;font-size:16px;}
+.correct{color:green;font-weight:bold;}
+.wrong{color:red;font-weight:bold;}
+#result{text-align:center;font-size:18px;margin-top:20px;}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h2>TALLY DEMO TEST</h2>
+<p>By Gaurav Arya</p>
+</div>
+
+<div class="container">
+
+<!-- 👇 QUESTIONS WILL LOAD HERE -->
+<div id="test"></div>
+
+<button onclick="submitTest()">Submit Test</button>
+<div id="result"></div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+const questionBank = [
+{q:"Tally का मुख्य उपयोग क्या है?",o:["Typing","Accounting","Design","Coding"],a:1},
+{q:"Cash Account किस प्रकार का है?",o:["Personal","Real","Nominal","Capital"],a:1},
+{q:"Sales voucher shortcut key?",o:["F8","F9","F10","F6"],a:0},
+{q:"GST का पूरा नाम?",o:["Goods Sales","Goods & Services","General","Global"],a:1},
+{q:"Inter-state sale में tax?",o:["CGST","SGST","IGST","None"],a:2}
+];
+
+// shuffle & pick all (demo)
+questionBank.sort(()=>Math.random()-0.5);
+const testDiv = document.getElementById("test");
+
+// render questions
+questionBank.forEach((q,i)=>{
+  let html = `<div class="question" id="q${i}">
+  <b>Q${i+1}. ${q.q}</b><br>`;
+  q.o.forEach((op,j)=>{
+    html += `<label>
+      <input type="radio" name="q${i}" value="${j}">
+      ${op}
+    </label><br>`;
+  });
+  html += `</div>`;
+  testDiv.innerHTML += html;
+});
+
+window.submitTest = function(){
+  let score = 0, attempted = 0;
+  questionBank.forEach((q,i)=>{
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    document.querySelectorAll(`#q${i} label`).forEach((l,j)=>{
+      if(j === q.a) l.classList.add("correct");
+    });
+    if(sel){
+      attempted++;
+      if(+sel.value === q.a) score++;
+      else sel.parentElement.classList.add("wrong");
+    }
+  });
+  document.getElementById("result").innerHTML =
+  `Correct: ${score}<br>
+   Wrong: ${attempted-score}<br>
+   Not Attempted: ${questionBank.length-attempted}<br>
+   <b>Score: ${score}/${questionBank.length}</b>`;
+};
+
+});
+</script>
+
+</body>
+</html>
