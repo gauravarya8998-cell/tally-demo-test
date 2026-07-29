@@ -103,9 +103,8 @@ This project is licensed under the **MIT License**.
 
 **Gaurav Arya**
 
-- GitHub: https://github.com/your-username
-- LinkedIn: [https://linkedin.com/in/your-profile
-](https://www.linkedin.com/in/gaurav-arya-825b21317/)
+- GitHub:[https://github.com/gauravarya8998-cell]
+- LinkedIn: [https://www.linkedin.com/in/gaurav-arya-825b21317/]
 ---
 
 ## ⭐ Support
